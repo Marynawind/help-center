@@ -259,6 +259,18 @@ warranty".
 Everything added beyond the documents is confined to the **"Which HUB adapter
 do I need?"** block — see above.
 
+## Search shows answers
+
+The first version only reported how many matches there were, which did not help
+anybody find anything. Typing now renders the matching Q&A entries under the
+search box with their answers: the top one open, the rest one click away, each
+with a "See this in the FAQ" link back to its place on the page. Guide matches
+are listed below as links that open the guide at that section.
+
+Ranking is simple and predictable: every term must appear, and a term found in
+the question counts ten times a term found only in the answer. Six answers and
+five guide sections at most, so the panel never buries the page.
+
 ## Forms
 
 All six HubSpot forms are wired and returning 200:
@@ -287,6 +299,8 @@ No placeholders remain: no `data-pending`, no `href="#"`, no `aria-disabled`.
 ## Checks
 
     fe-lint .    # CSS + markup: clean
+    # stylelint will not catch a selector left without a block — check the
+    # brace balance and that every class in the markup still has a rule
     # axe-core wcag2a + wcag2aa: no violations
     # no horizontal scroll at 390px
     # no console errors, no failed requests

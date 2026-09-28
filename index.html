@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,600,700%7CBarlow:400,600,700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=13">
+<link rel="stylesheet" href="styles.css?v=16">
 </head>
 <body>
 
@@ -80,6 +80,12 @@
         <button type="button" class="search-clear" id="search-clear" hidden aria-label="Clear search">&times;</button>
       </form>
       <p class="search-status" id="search-status" role="status" aria-live="polite"></p>
+
+      <!-- Search results: the answers themselves, so nobody has to go hunting. -->
+      <section class="results" id="results" hidden aria-labelledby="results-title">
+        <h2 class="sr-only" id="results-title">Search results</h2>
+        <div id="results-list"></div>
+      </section>
 
       <p class="hero-cta">
         <a class="btn btn-primary btn-lg" href="#faq">Browse all questions &amp; answers</a>
@@ -651,8 +657,6 @@
           <p>No — only one discount per order. We don’t allow discount stacking.</p>
         </div></details>
       </div>
-
-      <p class="no-results" id="no-results" hidden>No matches. Try a different term, or <a class="inline-link" href="#contact">contact us</a>.</p>
     </div>
   </section>
 
@@ -762,6 +766,6 @@
 
 <button class="to-top" id="to-top" hidden aria-label="Back to top">&uarr;</button>
 
-<script src="app.js?v=13"></script>
+<script src="app.js?v=16"></script>
 </body>
 </html>

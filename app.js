@@ -15,73 +15,162 @@
 
   $$('.tiles .tile').forEach(function (el, i) { el.style.setProperty('--i', i); });
 
+  /* ---------- Guide: opens on demand ---------- */
+  var guideWrap   = $('#guide-layout');
+  var guideToggle = $('#guide-toggle');
+
+  function setGuideOpen(open) {
+    if (!guideWrap || !guideToggle) return;
+    guideWrap.classList.toggle('is-collapsed', !open);
+    guideToggle.setAttribute('aria-expanded', String(open));
+    var label = guideToggle.querySelector('.btn-label') || guideToggle;
+    label.textContent = open ? 'Hide the guide' : 'See the full guide';
+  }
+
+  if (guideToggle) {
+    guideToggle.addEventListener('click', function () {
+      setGuideOpen(guideWrap.classList.contains('is-collapsed'));
+    });
+  }
+
+  /* Anything that points at the guide opens it first. */
+  $$('[data-open-guide], .page-nav a[href="#guide"], .tiles a[href="#guide"]')
+    .forEach(function (a) {
+      a.addEventListener('click', function () { setGuideOpen(true); });
+    });
+
   /* ==================================================================
-     Search — filters the FAQ and the guide in place
+     Search — shows the answers, not just a count
      ================================================================== */
   var input     = $('#q');
   var clearBtn  = $('#search-clear');
   var status    = $('#search-status');
-  var noResults = $('#no-results');
-  var faqItems  = $$('.faq-item');
-  var faqCats   = $$('.faq-cat');
-  var steps     = $$('.guide-step');
+  var results   = $('#results');
+  var resultsList = $('#results-list');
+  var tiles     = $('.tiles');
+  var heroCta   = $('.hero-cta');
 
-  function idx(nodes) {
-    return nodes.map(function (el) {
-      return { el: el, text: (el.textContent || '').toLowerCase().replace(/\s+/g, ' ') };
-    });
+  /* One record per answer, built once. */
+  var answers = $$('.faq-item').map(function (d) {
+    var q = $('summary', d).textContent.trim();
+    var body = $('.faq-a', d);
+    return {
+      id: d.id, kind: 'faq', title: q, html: body.innerHTML,
+      hay: (q + ' ' + d.textContent).toLowerCase().replace(/\s+/g, ' ')
+    };
+  });
+  var steps = $$('.guide-step').map(function (el) {
+    var h = $('h3', el);
+    return {
+      id: el.id, kind: 'guide', title: h ? h.textContent.trim() : '',
+      hay: (el.textContent || '').toLowerCase().replace(/\s+/g, ' ')
+    };
+  });
+
+  function score(rec, terms) {
+    var total = 0;
+    for (var i = 0; i < terms.length; i++) {
+      if (rec.hay.indexOf(terms[i]) === -1) return 0;
+      /* A word in the question beats one buried in the answer. */
+      total += rec.title.toLowerCase().indexOf(terms[i]) !== -1 ? 10 : 1;
+    }
+    return total;
   }
-  var faqIndex   = idx(faqItems);
-  var guideIndex = idx(steps);
 
-  function resetFilter() {
+  function rank(list, terms) {
+    return list
+      .map(function (r) { return { r: r, s: score(r, terms) }; })
+      .filter(function (h) { return h.s > 0; })
+      .sort(function (a, b) { return b.s - a.s; })
+      .map(function (h) { return h.r; });
+  }
+
+  function clearSearch() {
     document.body.classList.remove('is-searching');
-    faqIndex.forEach(function (r) {
-      r.el.classList.remove('is-hidden', 'is-hit');
-      r.el.open = false;
-    });
-    guideIndex.forEach(function (r) { r.el.classList.remove('is-hidden'); });
-    faqCats.forEach(function (c) { c.classList.remove('is-hidden'); });
-    if (noResults) noResults.hidden = true;
+    if (results) { results.hidden = true; resultsList.innerHTML = ''; }
     if (status) status.textContent = '';
+    if (tiles) tiles.hidden = false;
+    if (heroCta) heroCta.hidden = false;
   }
 
-  function applyFilter(raw) {
-    var terms = raw.toLowerCase().split(/\s+/).filter(Boolean);
-    if (!terms.length) { resetFilter(); return; }
-    document.body.classList.add('is-searching');
-    setGuideOpen(true);
+  function answerBlock(rec, open) {
+    var d = document.createElement('details');
+    d.className = 'result';
+    if (open) d.open = true;
+    var sum = document.createElement('summary');
+    sum.textContent = rec.title;
+    var body = document.createElement('div');
+    body.className = 'result-body';
+    body.innerHTML = rec.html;
+    var more = document.createElement('p');
+    more.className = 'result-more';
+    var a = document.createElement('a');
+    a.className = 'inline-link';
+    a.href = '#' + rec.id;
+    a.textContent = 'See this in the FAQ';
+    more.appendChild(a);
+    body.appendChild(more);
+    d.appendChild(sum);
+    d.appendChild(body);
+    return d;
+  }
 
-    function hit(rec) {
-      return terms.every(function (t) { return rec.text.indexOf(t) !== -1; });
+  function guideRow(rec) {
+    var p = document.createElement('p');
+    p.className = 'result-link';
+    var k = document.createElement('span');
+    k.className = 'result-kind';
+    k.textContent = 'Buying guide';
+    var a = document.createElement('a');
+    a.href = '#' + rec.id;
+    a.textContent = rec.title;
+    a.addEventListener('click', function () { setGuideOpen(true); });
+    p.appendChild(k);
+    p.appendChild(a);
+    return p;
+  }
+
+  function runSearch(raw) {
+    var terms = raw.toLowerCase().split(/\s+/).filter(Boolean);
+    if (!terms.length) { clearSearch(); return; }
+
+    document.body.classList.add('is-searching');
+    if (tiles) tiles.hidden = true;
+    if (heroCta) heroCta.hidden = true;
+
+    var faqHits = rank(answers, terms).slice(0, 6);
+    var guideHits = rank(steps, terms).slice(0, 5);
+
+    resultsList.innerHTML = '';
+    faqHits.forEach(function (rec, i) {
+      resultsList.appendChild(answerBlock(rec, i === 0));
+    });
+
+    if (guideHits.length) {
+      var h = document.createElement('p');
+      h.className = 'result-heading';
+      h.textContent = 'Also in the buying guide';
+      resultsList.appendChild(h);
+      guideHits.forEach(function (rec) { resultsList.appendChild(guideRow(rec)); });
     }
 
-    var faqHits = 0;
-    faqIndex.forEach(function (r) {
-      var m = hit(r);
-      r.el.classList.toggle('is-hidden', !m);
-      r.el.classList.toggle('is-hit', m);
-      r.el.open = m;
-      if (m) faqHits++;
-    });
-    faqCats.forEach(function (c) {
-      c.classList.toggle('is-hidden', c.querySelectorAll('.faq-item:not(.is-hidden)').length === 0);
-    });
+    if (!faqHits.length && !guideHits.length) {
+      var none = document.createElement('p');
+      none.className = 'result-none';
+      none.innerHTML = 'Nothing matches that. Try a different word, or ' +
+        '<a class="inline-link" href="#contact">contact us</a>.';
+      resultsList.appendChild(none);
+    }
 
-    var guideHits = 0;
-    guideIndex.forEach(function (r) {
-      var m = hit(r);
-      r.el.classList.toggle('is-hidden', !m);
-      if (m) guideHits++;
-    });
-
-    var total = faqHits + guideHits;
-    if (noResults) noResults.hidden = faqHits !== 0;
-    if (status) {
-      status.textContent = total === 0
-        ? 'No matches for \u201c' + raw + '\u201d.'
-        : total + (total === 1 ? ' match' : ' matches') +
-          ' \u2014 ' + faqHits + ' in the FAQ, ' + guideHits + ' in the buying guide.';
+    results.hidden = false;
+    if (faqHits.length) {
+      status.textContent = faqHits.length + (faqHits.length === 1 ? ' answer' : ' answers') +
+        (guideHits.length ? ', plus ' + guideHits.length + ' in the buying guide' : '');
+    } else if (guideHits.length) {
+      status.textContent = guideHits.length + ' match' +
+        (guideHits.length === 1 ? '' : 'es') + ' in the buying guide';
+    } else {
+      status.textContent = 'No matches for \u201c' + raw + '\u201d.';
     }
   }
 
@@ -98,11 +187,11 @@
     var run = debounce(function () {
       var v = input.value.trim();
       if (clearBtn) clearBtn.hidden = v === '';
-      applyFilter(v);
+      runSearch(v);
     }, 140);
     input.addEventListener('input', run);
     input.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') { input.value = ''; clearBtn.hidden = true; resetFilter(); }
+      if (e.key === 'Escape') { input.value = ''; clearBtn.hidden = true; clearSearch(); }
     });
   }
 
@@ -110,7 +199,7 @@
     clearBtn.addEventListener('click', function () {
       input.value = '';
       clearBtn.hidden = true;
-      resetFilter();
+      clearSearch();
       input.focus();
     });
   }
@@ -118,7 +207,7 @@
   /* ==================================================================
      Collapsibles — FAQ questions and guide steps behave the same way
      ================================================================== */
-  var panels = faqItems;
+  var panels = $$('.faq-item');
 
   function body(d) { return $('.faq-a', d); }
 
@@ -162,30 +251,6 @@
       $$('.faq-item', $(scope)).forEach(function (d) { d.open = open; });
     });
   });
-
-  /* ---------- Guide: opens on demand ---------- */
-  var guideWrap   = $('#guide-layout');
-  var guideToggle = $('#guide-toggle');
-
-  function setGuideOpen(open) {
-    if (!guideWrap || !guideToggle) return;
-    guideWrap.classList.toggle('is-collapsed', !open);
-    guideToggle.setAttribute('aria-expanded', String(open));
-    var label = guideToggle.querySelector('.btn-label') || guideToggle;
-    label.textContent = open ? 'Hide the guide' : 'See the full guide';
-  }
-
-  if (guideToggle) {
-    guideToggle.addEventListener('click', function () {
-      setGuideOpen(guideWrap.classList.contains('is-collapsed'));
-    });
-  }
-
-  /* Anything that points at the guide opens it first. */
-  $$('[data-open-guide], .page-nav a[href="#guide"], .tiles a[href="#guide"]')
-    .forEach(function (a) {
-      a.addEventListener('click', function () { setGuideOpen(true); });
-    });
 
   /* ==================================================================
      Deep links — a linked answer opens itself
@@ -250,7 +315,7 @@
         link.classList.add('active');
       });
     }, { rootMargin: '-70px 0px -70% 0px' });
-    steps.forEach(function (st) { stepObs.observe(st); });
+    $$('.guide-step').forEach(function (st) { stepObs.observe(st); });
   }
 
   var pageNav = $('.page-nav');
