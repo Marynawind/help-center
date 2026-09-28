@@ -259,6 +259,31 @@ warranty".
 Everything added beyond the documents is confined to the **"Which HUB adapter
 do I need?"** block — see above.
 
+## Forms
+
+All six HubSpot forms are wired and returning 200:
+
+| Form | Appears in |
+|---|---|
+| Order Cancel / Cancellation | Orders card, FAQ "How do I cancel my order?", Contact |
+| Order Update | Orders card, FAQ "How do I modify my order?", Contact |
+| Dealer Change | Orders card, FAQ "Can I change my FFL/SOT dealer…", Contact |
+| Warranty – Suppressor | Warranty panel, FAQ "What is the warranty policy?", Contact |
+| Missing HUB Adapter | FAQ, Contact |
+| Incorrect / Defective Part | Returns card, FAQ, Contact |
+
+No placeholders remain: no `data-pending`, no `href="#"`, no `aria-disabled`.
+
+## Still open
+
+- **"2027 SOT license"** in the dealer-verification answer is carried over
+  verbatim from the FAQ document. Worth confirming it is not a typo before this
+  goes live.
+- **The HUB adapter section** is drafted but off the page until the client
+  approves the copy — see `DRAFT — HUB adapter section (needs client approval).md`.
+- **Editing access** for Donnie and the team is a CMS decision — see the
+  editing-access notes.
+
 ## Checks
 
     fe-lint .    # CSS + markup: clean
