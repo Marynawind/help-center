@@ -231,6 +231,19 @@ Two files track this so nothing gets mistaken for client copy:
   I drafted one; it has been pulled until the client writes or approves it.
   The markup is kept in `DRAFT — HUB adapter markup.html`.
 
+## Client edits after review
+
+Five wording changes came back from the client; these are the places where the
+page now deliberately differs from the source documents:
+
+| Where | Change |
+|---|---|
+| Order section lede | "Our most common questions…" → "Start here for quick answers to our most frequently asked questions." |
+| Check the Status of My Order | The serial-number paragraph removed from the card. It still reads in full as FAQ "Can I get my serial number ahead of time?" |
+| Returns Policy card | Leading "Yes." dropped — it answered a question that is not on the card. The FAQ answer keeps it |
+| Order Changes card | One sentence now covers both forms, and the two buttons sit together: "For changes to your suppressor order, submit the Order Update Form. To change your selected FFL/SOT dealer, submit the Dealer Change Form." |
+| Warranty kicker | "Backdraft" → "Backdraft Suppressors", set in `#333` rather than the muted grey the other kickers use, because it is a brand name and not a label |
+
 ## Content rule
 
 **The text in the two source documents is the client's. It is reproduced word
