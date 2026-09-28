@@ -254,7 +254,7 @@ page now deliberately differs from the source documents:
 | Check the Status of My Order | The serial-number paragraph removed from the card. It still reads in full as FAQ "Can I get my serial number ahead of time?" |
 | Returns Policy card | Leading "Yes." dropped — it answered a question that is not on the card. The FAQ answer keeps it |
 | Order Changes card | One sentence now covers both forms, and the two buttons sit together: "For changes to your suppressor order, submit the Order Update Form. To change your selected FFL/SOT dealer, submit the Dealer Change Form." |
-| Warranty kicker | "Backdraft" → "Backdraft Suppressors", set in `#333` rather than the muted grey the other kickers use, because it is a brand name and not a label |
+| Warranty kicker | "Backdraft" → "Backdraft Suppressors", in `#333` and at 18px to match the "What is not covered" heading below it. The other kickers ("In this guide", "Aluminum", "Steel") stay 12px muted grey — this one is a brand name, not a label |
 
 ## Content rule
 

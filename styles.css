@@ -256,7 +256,12 @@ a { color: var(--text); }
   font-size: 12px; line-height: 18px; letter-spacing: 1.5px;
   color: var(--muted);
 }
-.eyebrow { margin-bottom: 8px; color: var(--ink); }
+/* The brand line above the warranty title sits at the same size as the
+   "WHAT IS NOT COVERED" heading below it. */
+.eyebrow {
+  margin-bottom: 8px; color: var(--ink);
+  font-size: 18px; line-height: 26px;
+}
 .hero h1 { margin-bottom: 10px; }
 .hero-sub { color: var(--text); max-width: 620px; margin: 0 auto 30px; }
 
