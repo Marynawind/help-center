@@ -1,0 +1,16 @@
+# macOS
+.DS_Store
+
+# Client source documents — the repository is public, so the originals
+# stay out of it.
+*.docx
+
+# Internal working notes: drafts and open questions for the client, not
+# part of the deliverable.
+MY TEXT — needs your approval.md
+DRAFT — *.md
+DRAFT — *.html
+
+# Local scratch
+undefined/
+node_modules/
