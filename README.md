@@ -12,7 +12,7 @@ Static prototype of the Help Center page. No build step, no dependencies.
 | `index.html` | All content and page structure |
 | `styles.css` | Brand tokens in `:root` — change colours/fonts there |
 | `app.js` | Search/filter, expand-collapse, deep links, back-to-top |
-| `assets/logo.png` | Store logo, pulled from the theme and made transparent |
+| `assets/logo.png` | Store logo, transparent. Unused since the header was removed |
 | `assets/watermark.png` | The Outlier mark used as the background watermark |
 
 ## Design
@@ -54,22 +54,21 @@ Two departures from the theme:
 Fonts load from the same Google Fonts families the theme already requests, so
 there is no extra font payload when this is dropped into the store.
 
-## Store chrome
+## No store chrome
 
-The page carries the site's own header, breadcrumb and footer so it reads as a
-continuation of backdraftsuppressors.com rather than a page that happens to
-share its colours: logo + store search + Sign in / Register + cart, the
-`SHOP ALL / SUPPRESSORS / ADAPTERS / APPAREL / AMMUNITION` bar,
-`Home / Help Center` breadcrumb, newsletter block, and the `#333` footer with
-Outlier USA LLC, the category and information columns, socials, payment row.
+The page is the Help Center and nothing else — no store header, breadcrumb,
+newsletter block or footer. Those were mirrored from the live theme while the
+page was being reviewed on its own; in the real BigCommerce template the theme
+supplies them, so carrying copies would have meant two of each.
 
-In the real BigCommerce template none of this is ours — the theme supplies the
-header and footer, and this markup gets deleted. It exists so the prototype can
-be reviewed as a finished page. The one piece that stays is the sticky
-**Help Center section nav** under the hero.
+What that leaves: the hero with the search, the sticky section nav
+(Orders / Buying Guide / FAQ / Warranty / Contact), the four content sections
+and the back-to-top button. The legal line that used to sit in the footer now
+closes the Contact block, because it belongs to this page rather than to the
+site.
 
-The store search and newsletter forms point at the real endpoints
-(`/search.php`, `/subscribe.php`) so they behave sensibly if anyone clicks them.
+`assets/logo.png` is no longer referenced. It is kept in the repository in case
+the header is ever wanted back.
 
 ## Logo
 

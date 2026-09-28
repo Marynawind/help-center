@@ -355,7 +355,4 @@
       window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
     });
   }
-
-  var year = $('#year');
-  if (year) year.textContent = String(new Date().getFullYear());
 })();
