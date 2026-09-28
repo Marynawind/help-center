@@ -26,7 +26,7 @@ rendered site rather than guessed:
 | Body text | Helvetica 14px / 21px, `#4e4e4e` | same |
 | Headings | Barlow 700, uppercase, `0.25px` | same |
 | Nav & buttons | Roboto Condensed 700 uppercase | same |
-| Buttons | `#333` fill, white text, 2px radius, 14px 39px | same |
+| Buttons | `#333` fill, white text, 2px radius | same — one treatment, no outlined variant |
 | Footer | `#333` | same |
 | Alternating bands | white / `#f9f9f9` | same |
 
@@ -230,6 +230,18 @@ Two files track this so nothing gets mistaken for client copy:
   suppressor *and HUB adapter*, but neither document covers buying the adapter.
   I drafted one; it has been pulled until the client writes or approves it.
   The markup is kept in `DRAFT — HUB adapter markup.html`.
+
+## Buttons
+
+Every button is the same: `#333` fill, white text, 1px border of the same
+colour, Roboto Condensed 700 uppercase, 2px radius. There is no outlined
+variant — the page used to mix filled and outlined form links inside the same
+row of cards, which read as a mistake rather than a hierarchy.
+
+Two sizes remain, and only by role: `btn-lg` (16px / 16px 40px) for the two
+page-level actions — the hero button and the guide toggle — and the standard
+size (15px / 14px 32px) for every form link. Say the word and they collapse to
+one size.
 
 ## Client edits after review
 

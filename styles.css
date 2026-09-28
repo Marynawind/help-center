@@ -402,8 +402,6 @@ a { color: var(--text); }
 }
 [aria-expanded="true"] .btn-chev { transform: rotate(180deg); }
 @media (prefers-reduced-motion: reduce) { .btn-chev { transition: none; } }
-.btn-ghost { background: #fff; color: var(--ink); }
-.btn-ghost:hover { background: var(--ink); color: #fff; }
 
 /* ---------- Guide ---------- */
 .guide-layout { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 48px; align-items: start; }
