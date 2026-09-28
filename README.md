@@ -9,13 +9,25 @@ Static prototype of the Help Center page. No build step, no dependencies.
 
 | File | What's in it |
 |------|--------------|
-| `bigcommerce/` | The Stencil bundle — what actually goes into the store. See its `INSTALL.md` |
+| `single-page/` | One-file builds: everything inlined, nothing to upload alongside |
+| `bigcommerce/` | The Stencil bundle — template, assets, and the site-wide Help button |
 | `build-bigcommerce.py` | Generates that bundle from the three files below |
 | `index.html` | All content and page structure |
 | `styles.css` | Brand tokens in `:root` — change colours/fonts there |
 | `app.js` | Search/filter, expand-collapse, deep links, back-to-top |
 | `assets/logo.png` | Store logo, transparent. Unused since the header was removed |
 | `assets/watermark.png` | The Outlier mark used as the background watermark |
+
+## Two ways to ship it
+
+| | What it is | When |
+|---|---|---|
+| `single-page/help-center-embed.html` | One file, everything inlined | Pasting into a Web Page in the store admin. Nothing to upload |
+| `bigcommerce/` | A Stencil template plus assets | Theme access. The script lives in a real file, so no editor can strip it |
+
+The one-file route is quicker; the theme route is sturdier. `single-page/README.md`
+explains the trade-off, including what to do if the page editor sanitises the
+`<script>` block away.
 
 ## Moving it into BigCommerce
 

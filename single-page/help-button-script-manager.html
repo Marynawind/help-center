@@ -1,0 +1,72 @@
+<!-- Backdraft Suppressors — floating Help Center button
+
+     Goes in the store admin under Storefront -> Script Manager:
+       Name        Help Center button
+       Location    Footer
+       Pages       All pages
+       Script type Script
+       Method      Script tag  (paste everything below)
+
+     It needs no theme access and touches no theme file. It hides itself on
+     the Help Center page, so it never points at the page being read.
+
+     Set HELP_URL below to the URL you gave the page. -->
+<script>
+(function () {
+  'use strict';
+
+  var HELP_URL = '/help-center/';      /* <-- the Help Center page URL */
+  var LABEL    = 'Help Center';
+
+  if (document.querySelector('.hcb-fab')) return;          /* already added */
+
+  /* Hide it on the Help Center itself — by URL, and also by the page being
+     there at all, so a different URL still does the right thing. */
+  var here = location.pathname.replace(/\/+$/, '');
+  if (here === HELP_URL.replace(/\/+$/, '')) return;
+  if (document.querySelector('.hc-root, #help-center')) return;
+
+  var css = document.createElement('style');
+  css.textContent = [
+    '.hcb-fab{position:fixed;right:0;top:50%;transform:translateY(-50%);',
+    'z-index:900;display:flex;align-items:center;gap:8px;padding:16px 12px;',
+    'background:#333;color:#fff;text-decoration:none;border-radius:2px 0 0 2px;',
+    'box-shadow:0 2px 10px rgba(0,0,0,.18);',
+    'font-family:"Roboto Condensed",Arial,Helvetica,sans-serif;font-size:13px;',
+    'font-weight:700;line-height:1;text-transform:uppercase;letter-spacing:.5px;',
+    'writing-mode:vertical-rl;transition:background .15s ease,padding .15s ease}',
+    '.hcb-fab:hover,.hcb-fab:focus-visible{background:#000;color:#fff;',
+    'padding-right:16px;text-decoration:none}',
+    '.hcb-fab:focus-visible{outline:2px solid #333;outline-offset:3px}',
+    '.hcb-fab svg{width:16px;height:16px;fill:none;stroke:currentColor;',
+    'stroke-width:2;stroke-linecap:round;stroke-linejoin:round;',
+    'transform:rotate(90deg)}',
+    /* On a phone a full-height tab covers too much, so it becomes a circle. */
+    '@media(max-width:720px){.hcb-fab{top:auto;bottom:18px;right:18px;',
+    'transform:none;width:52px;height:52px;padding:0;justify-content:center;',
+    'border-radius:50%;writing-mode:horizontal-tb}',
+    '.hcb-fab .hcb-label{position:absolute;width:1px;height:1px;padding:0;',
+    'margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}',
+    '.hcb-fab svg{width:22px;height:22px;transform:none}',
+    '.hcb-fab:hover,.hcb-fab:focus-visible{padding:0}}',
+    '@media(prefers-reduced-motion:reduce){.hcb-fab{transition:none}}',
+    '@media print{.hcb-fab{display:none}}'
+  ].join('');
+  document.head.appendChild(css);
+
+  var a = document.createElement('a');
+  a.className = 'hcb-fab';
+  a.href = HELP_URL;
+  a.innerHTML =
+    '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+    '<circle cx="12" cy="12" r="9"></circle>' +
+    '<path d="M9.6 9.3a2.5 2.5 0 1 1 3.3 2.4c-.6.2-.9.8-.9 1.4v.4"></path>' +
+    '<path d="M12 17h.01"></path></svg>' +
+    '<span class="hcb-label"></span>';
+  a.querySelector('.hcb-label').textContent = LABEL;
+
+  function add() { (document.body || document.documentElement).appendChild(a); }
+  if (document.body) add();
+  else document.addEventListener('DOMContentLoaded', add);
+}());
+</script>

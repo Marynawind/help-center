@@ -9,7 +9,7 @@ collision impossible rather than merely unlikely.
 
 Run from the project root:  python3 build-bigcommerce.py
 """
-import os, re, shutil
+import base64, os, re, shutil
 
 ROOT_CLASS = 'hc-root'
 PREFIX = 'hc-'
@@ -225,5 +225,54 @@ def build():
     print('built %d classes prefixed, scoped to .%s' % (len(NAMES), ROOT_CLASS))
 
 
+# --------------------------------------------------------------- single file
+def build_single():
+    """Two self-contained files: everything inlined, no assets to upload."""
+    os.makedirs('single-page', exist_ok=True)
+    watermark = base64.b64encode(open(SRC_WATERMARK, 'rb').read()).decode()
+    data_uri = 'data:image/png;base64,' + watermark
+    fonts = ('https://fonts.googleapis.com/css?family='
+             'Roboto+Condensed:400,600,700%7CBarlow:400,600,700&display=swap')
+
+    # ---- standalone: a complete document
+    html = open(SRC_HTML).read()
+    css = open(SRC_CSS).read().replace('url("assets/watermark.png")',
+                                       'url("%s")' % data_uri)
+    js = open(SRC_JS).read()
+    doc = html
+    # A plain replacement — re.sub would read backslashes in the code as escapes.
+    doc = re.sub(r'\n<link rel="stylesheet" href="styles\.css[^"]*">',
+                 lambda m: '\n<style>\n' + css + '\n</style>', doc)
+    doc = re.sub(r'\n<script src="app\.js[^"]*"></script>',
+                 lambda m: '\n<script>\n' + js + '\n</script>', doc)
+    open('single-page/help-center.html', 'w').write(doc)
+
+    # ---- embed: scoped, no <html>/<head>/<body>, for a page content editor
+    tpl = open(os.path.join(OUT, 'templates/pages/custom/page/help-center.html')).read()
+    inner = tpl[tpl.index('{{#partial "page"}}') + len('{{#partial "page"}}'):
+                tpl.index('{{/partial}}')]
+    scoped_css = open(os.path.join(OUT, 'assets/css/help-center.css')).read()
+    scoped_css = scoped_css.replace('url("../img/help-center-watermark.png")',
+                                    'url("%s")' % data_uri)
+    scoped_js = open(os.path.join(OUT, 'assets/js/help-center.js')).read()
+    # drop the asset links; the styles and script come inline instead
+    inner = re.sub(r'<link rel="preconnect"[^>]*>\n', '', inner)
+    inner = re.sub(r'<link href="https://fonts\.googleapis[^>]*>\n', '', inner)
+    inner = re.sub(r'<link rel="stylesheet" href="\{\{cdn[^>]*>\n', '', inner)
+    inner = re.sub(r'<script src="\{\{cdn[^>]*></script>\n', '', inner)
+    embed = ('<!-- Backdraft Suppressors — Help Center\n'
+             '     One block: markup, styles and script, with the watermark\n'
+             '     inlined. Paste into the page editor in SOURCE/HTML mode —\n'
+             '     a visual editor will strip the <style> and <script>. -->\n'
+             '<style>\n@import url("%s");\n\n%s\n</style>\n'
+             % (fonts, scoped_css)
+             + inner.strip() + '\n\n<script>\n' + scoped_js + '\n</script>\n')
+    open('single-page/help-center-embed.html', 'w').write(embed)
+
+    for f in ('single-page/help-center.html', 'single-page/help-center-embed.html'):
+        print('%-38s %6.0f KB' % (f, os.path.getsize(f) / 1024))
+
+
 if __name__ == '__main__':
     build()
+    build_single()
