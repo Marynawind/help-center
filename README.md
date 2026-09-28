@@ -9,11 +9,45 @@ Static prototype of the Help Center page. No build step, no dependencies.
 
 | File | What's in it |
 |------|--------------|
+| `bigcommerce/` | The Stencil bundle — what actually goes into the store. See its `INSTALL.md` |
+| `build-bigcommerce.py` | Generates that bundle from the three files below |
 | `index.html` | All content and page structure |
 | `styles.css` | Brand tokens in `:root` — change colours/fonts there |
 | `app.js` | Search/filter, expand-collapse, deep links, back-to-top |
 | `assets/logo.png` | Store logo, transparent. Unused since the header was removed |
 | `assets/watermark.png` | The Outlier mark used as the background watermark |
+
+## Moving it into BigCommerce
+
+`bigcommerce/` holds the Stencil bundle: a custom page template, a stylesheet,
+a script and the watermark. `bigcommerce/INSTALL.md` has the steps.
+
+It is generated, not hand-written:
+
+```
+python3 build-bigcommerce.py
+```
+
+Edit `index.html`, `styles.css` and `app.js` — the standalone page — then
+rebuild. The build does three things the standalone page does not need:
+
+- **Prefixes every class `hc-` and scopes every selector to `.hc-root`.**
+  Scoping alone is not enough: a theme rule like `.btn { … !important }` beats
+  `.help-center .btn`, while a class the theme has never heard of cannot be
+  touched at all.
+- **Adds a guard block** re-establishing colour, family and spacing on bare
+  elements inside the root, because a theme that styles `p` directly beats
+  inheritance from the wrapper. This was found by testing, not by guessing —
+  the FAQ answers came out green under a mock theme.
+- **Gives the root a background and a stacking context.** Standalone, the
+  watermark sits on `<body>` over a painted `<html>`; embedded there is no such
+  pair, so without `position: relative; z-index: 0` the `z-index: -1` watermark
+  lands beneath the root's own background instead of above it.
+
+Verified against a deliberately hostile stand-in theme — serif fonts, red
+headings, `content-box` sizing, a 300px `.wrap`, `.btn` forced yellow with
+`!important`. Both sides render exactly as they should, and the watermark
+measures the same tone in both builds.
 
 ## Design
 

@@ -1,0 +1,651 @@
+{{!--
+    Backdraft Suppressors — Help Center
+
+    Custom page template. See bigcommerce/INSTALL.md.
+--}}
+{{#partial "page"}}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,600,700%7CBarlow:400,600,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{cdn 'assets/css/help-center.css'}}">
+
+<div class="hc-root" id="help-center">
+
+  <!-- ============ HERO + SEARCH ============ -->
+  <section class="hc-hero">
+    <div class="hc-wrap">
+      <h1>How can we help?</h1>
+      <p class="hc-hero-sub">Specs, compatibility, order status, FFL/SOT transfers and warranty — all in one place.</p>
+
+      <form class="hc-search" role="search" onsubmit="return false;">
+        <label class="hc-sr-only" for="q">Search the Help Center</label>
+        <svg class="hc-search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="16.5" y1="16.5" x2="21" y2="21"></line></svg>
+        <input id="q" type="search" placeholder="Search — e.g. “barrel length”, “transfer fee”, “HUB adapter”" autocomplete="off">
+        <button type="button" class="hc-search-clear" id="search-clear" hidden aria-label="Clear search">&times;</button>
+      </form>
+      <p class="hc-search-status" id="search-status" role="status" aria-live="polite"></p>
+
+      <!-- Search results: the answers themselves, so nobody has to go hunting. -->
+      <section class="hc-results" id="results" hidden aria-labelledby="results-title">
+        <h2 class="hc-sr-only" id="results-title">Search results</h2>
+        <div id="results-list"></div>
+      </section>
+
+      <p class="hc-hero-cta">
+        <a class="hc-btn hc-btn-primary hc-btn-lg" href="#faq">Browse all questions &amp; answers</a>
+      </p>
+
+      <div class="hc-tiles">
+        <a class="hc-tile" href="#order-status">
+          <span class="hc-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h13v10H3z"/><path d="M16 10h3l2 3v4h-5z"/><circle cx="7" cy="17" r="2"/><circle cx="18" cy="17" r="2"/></svg></span>
+          <span class="hc-tile-title">Where is my order?</span>
+          <span class="hc-tile-sub">Status &amp; lead times</span>
+        </a>
+        <a class="hc-tile" href="#guide" data-open-guide>
+          <span class="hc-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h7"/><rect x="10" y="8.5" width="9" height="7" rx="1.5"/><path d="M19 12h2"/></svg></span>
+          <span class="hc-tile-title">Guide to Buying a Suppressor and HUB Adapter</span>
+          <span class="hc-tile-sub">Step-by-step guide</span>
+        </a>
+        <a class="hc-tile" href="#order-help">
+          <span class="hc-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16"/><path d="M14.5 4.5l5 5L9 20H4v-5z"/></svg></span>
+          <span class="hc-tile-title">Changes, Returns, and Cancellations</span>
+          <span class="hc-tile-sub">Order update forms</span>
+        </a>
+        <a class="hc-tile" href="#warranty">
+          <span class="hc-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.6 5.5 5.9.8-4.3 4.2 1 6-5.2-2.9L6.8 19.5l1-6L3.5 9.3l5.9-.8z"/></svg></span>
+          <span class="hc-tile-title">Lifetime Warranty</span>
+          <span class="hc-tile-sub">Coverage &amp; claims</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <nav class="hc-page-nav" aria-label="Help Center sections">
+    <div class="hc-wrap hc-page-nav-inner">
+      <a href="#order-help">Orders</a>
+      <a href="#guide">Buying Guide</a>
+      <a href="#faq">FAQ</a>
+      <a href="#warranty">Warranty</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- ============ ORDER STATUS / CHANGES / RETURNS / CANCELLATIONS ============ -->
+  <section class="hc-section hc-section-orders" id="order-help" data-searchable-section>
+    <div class="hc-wrap">
+      <header class="hc-section-head">
+        <h2>Order Status, Changes, Returns &amp; Cancellations</h2>
+        <p class="hc-section-lede">Start here for quick answers to our most frequently asked questions.</p>
+      </header>
+
+      <div class="hc-order-grid">
+
+        <article class="hc-order-card hc-featured" id="order-status">
+          <h3>Check the Status of My Order</h3>
+          <p><a class="hc-inline-link" href="https://backdraftsuppressors.com/account.php?action=order_status">Login to your Account</a> to see the status of your order.</p>
+          <div class="hc-callout">
+            <p class="hc-callout-title">Lead times</p>
+            <p>Suppressors aren&rsquo;t tracked by order number through production, since we manufacture in batches based on model configuration. Beyond our estimated 8&ndash;12 week lead time, we don&rsquo;t have a more specific timeline to provide.</p>
+            <p>Once a serial number is assigned to your order, your order will ship within the next several business days, and you&rsquo;ll receive a shipping notification with tracking info.</p>
+          </div>
+        </article>
+
+        <article class="hc-order-card" id="returns">
+          <h3>Returns Policy</h3>
+          <p>Due to the regulated nature of suppressors under the National Firearms Act (NFA), all sales are final. Once an order has been placed and submitted for transfer, it may not be canceled, refunded, or exchanged.</p>
+          <p>Backdraft Suppressors will only accept responsibility in cases where an incorrect product is shipped or where a product is determined to be defective in materials or workmanship. In such instances, Backdraft Suppressors will, at its sole discretion, repair or replace the item.</p>
+          <p class="hc-fine">Non-NFA items such as un-opened ammo, apparel and HUB adapters can be returned within 30 days of shipped order.</p>
+          <p><a class="hc-btn hc-btn-primary" href="https://c5bz3.share-na2.hsforms.com/27KskekuGRcaRLHhTtfo0PQ" target="_blank" rel="noopener">Incorrect / Defective Part Form</a></p>
+        </article>
+
+        <article class="hc-order-card" id="cancel">
+          <h3>Order Cancellations</h3>
+          <p>Click the following form to submit a cancellation request.</p>
+          <p><a class="hc-btn hc-btn-primary" href="https://c5bz3.share-na2.hsforms.com/2OMsXyO2pRqSjf1NFEd6ESw" target="_blank" rel="noopener">Order Cancel Form</a></p>
+          <p class="hc-fine">Changes can only be made before the NFA transfer process has begun. Our team will review your request and follow up with you either way to confirm whether the cancellation was completed or if the transfer process has already begun and the order can no longer be modified.</p>
+        </article>
+
+        <article class="hc-order-card" id="update">
+          <h3>Order Changes</h3>
+          <p>For changes to your suppressor order, submit the Order Update Form. To change your selected FFL/SOT dealer, submit the Dealer Change Form.</p>
+          <p class="hc-btn-stack">
+            <a class="hc-btn hc-btn-primary" href="https://c5bz3.share-na2.hsforms.com/2suyVOMoXQACIQAXE8p8inA" target="_blank" rel="noopener">Order Update Form</a>
+            <a class="hc-btn hc-btn-primary" href="https://c5bz3.share-na2.hsforms.com/24f3YBpmeS2KYiUS4Q83Vbw" target="_blank" rel="noopener">Dealer Change Form</a>
+          </p>
+          <p class="hc-fine">Changes can only be made before the NFA transfer process has begun. Our team will review your request and follow up with you either way to confirm whether the change was completed or if the transfer process has already begun and the order can no longer be modified.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BUYING GUIDE ============ -->
+  <section class="hc-section hc-section-guide" id="guide" data-searchable-section>
+    <div class="hc-wrap">
+      <header class="hc-section-head">
+        <h2>Guide to Buying a Suppressor &amp; HUB Adapter</h2>
+        <p class="hc-section-lede">Buying a suppressor can feel complicated. Calibers, bore sizes, barrel lengths, HUB mounts, thread pitches, FFL/SOT dealers and ATF paperwork introduce a lot of new terminology at once.</p>
+        <p class="hc-section-lede">The good news? Once you understand a few basics, choosing and buying the right suppressor is much easier.</p>
+        <p class="hc-section-lede">This guide will walk you through the process&mdash;from choosing your suppressor to picking it up from your dealer.</p>
+        <p class="hc-guide-more">
+          <button type="button" class="hc-btn hc-btn-primary hc-btn-lg" id="guide-toggle"
+                  aria-expanded="false" aria-controls="guide-layout"><span class="hc-btn-label">See the full guide</span><svg class="hc-btn-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 6 6-6"></path></svg></button>
+        </p>
+      </header>
+
+      <div class="hc-guide-collapse hc-is-collapsed" id="guide-layout">
+      <div class="hc-guide-layout">
+
+        <nav class="hc-guide-nav" aria-label="Guide steps">
+          <p class="hc-guide-nav-title">In this guide</p>
+          <ul>
+            <li><a href="#g-what">What a suppressor does</a></li>
+            <li><a href="#g-1">Start with your caliber</a></li>
+            <li><a href="#g-2">Choose your length</a></li>
+            <li><a href="#g-3">Choose your material</a></li>
+            <li><a href="#g-4">Barrel length &amp; pressure</a></li>
+            <li><a href="#g-5">How it attaches</a></li>
+            <li><a href="#g-6">Direct thread or HUB</a></li>
+            <li><a href="#g-7">Pistols</a></li>
+            <li><a href="#g-8">Choose your dealer</a></li>
+            <li><a href="#g-9">Place your order</a></li>
+            <li><a href="#g-10">Complete the transfer</a></li>
+            <li><a href="#g-cost">What it really costs</a></li>
+            <li><a href="#g-compare">Hunter vs. Poacher</a></li>
+            <li><a href="#g-after">After you receive it</a></li>
+            <li><a href="#g-clean">Cleaning</a></li>
+            <li><a href="#g-change">Changing your order</a></li>
+            <li><a href="#g-warranty">Lifetime warranty</a></li>
+          </ul>
+        </nav>
+
+
+        <div class="hc-guide-body">
+
+          <article class="hc-guide-step" id="g-what">
+            <h3>First: what does a suppressor actually do?</h3>
+                        <p>A suppressor attaches to the muzzle of a firearm and helps reduce the sound signature and muzzle blast produced when firing.</p>
+            <p>Despite what you may have seen in movies, a suppressor does not make a firearm completely silent.</p>
+            <p>Suppressors can help reduce:</p>
+            <ul class="hc-tick-list hc-cols">
+              <li>Sound signature</li>
+              <li>Muzzle blast</li>
+              <li>Recoil</li>
+              <li>Muzzle flash</li>
+            </ul>
+            <p>For many shooters, the benefits go well beyond sound reduction. A suppressor can make a firearm more comfortable to shoot and reduce the overall signature of the firearm.</p>
+            <p class="hc-warn">Hearing protection may still be appropriate or necessary when shooting suppressed.</p>
+          </article>
+
+          <article class="hc-guide-step" id="g-1">
+            <h3>Step 1: Start with your caliber</h3>
+                        <p>Before choosing a suppressor, start with the firearm you plan to suppress.</p>
+            <p>Ask yourself:</p>
+            <h4>What caliber am I shooting?</h4>
+            <p>Backdraft suppressors are available in five bore sizes:</p>
+            <p class="hc-spec-row">5.56mm <span>|</span> 6.5mm <span>|</span> 7.62mm <span>|</span> 9mm <span>|</span> .45 cal</p>
+            <p>Your suppressor must be rated appropriately for the cartridge you're shooting.</p>
+            <h4>Can one suppressor work with multiple calibers?</h4>
+            <p>Yes.</p>
+            <p>A larger-bore suppressor can generally be used with compatible smaller calibers, provided the suppressor is rated for the cartridge, barrel length and pressure involved.</p>
+            <p>There is a tradeoff.</p>
+            <p>When firing a smaller projectile through a larger suppressor bore, more gas can bypass the projectile. That means you may lose some suppression efficiency compared with a suppressor more closely matched to the caliber.</p>
+            <p class="hc-tip"><strong>Beginner Tip:</strong> If you're planning to use one suppressor across several firearms, a larger bore can offer additional versatility. If you're primarily suppressing one firearm, choosing a bore closer to that caliber may provide greater efficiency.</p>
+          </article>
+
+          <article class="hc-guide-step" id="g-2">
+            <h3>Step 2: Choose your length</h3>
+                        <p>Backdraft suppressors are available in:</p>
+            <p class="hc-spec-row">4" <span>|</span> 6" <span>|</span> 8"</p>
+            <p>Suppressor length affects the overall size, weight and performance of your firearm.</p>
+            <p>In general, a shorter suppressor keeps the firearm more compact, while a longer suppressor provides additional internal volume for managing expanding gases.</p>
+            <p>Suppressor&rsquo;s different lengths also contain different numbers of baffles:</p>
+            <table class="hc-data-table">
+              <caption class="hc-sr-only">Baffle count by suppressor length</caption>
+              <thead><tr><th scope="col">Suppressor Length</th><th scope="col">Baffles</th></tr></thead>
+              <tbody>
+                <tr><td>4"</td><td>3</td></tr>
+                <tr><td>6"</td><td>7</td></tr>
+                <tr><td>8"</td><td>9</td></tr>
+              </tbody>
+            </table>
+            <p>Choosing a length ultimately comes down to how you plan to use your firearm and what you value most.</p>
+            <p>Think about the balance between:</p>
+            <p class="hc-flow">Size <span aria-hidden="true">&rarr;</span> Weight <span aria-hidden="true">&rarr;</span> Sound reduction <span aria-hidden="true">&rarr;</span> Application</p>
+            <p>A hunter carrying a rifle for miles may have different priorities than someone primarily shooting from a bench.</p>
+          </article>
+
+          <article class="hc-guide-step" id="g-3">
+            <h3>Step 3: Choose your material &mdash; Hunter or Poacher</h3>
+                        <p>One of the biggest decisions when choosing a Suppressor is the material.</p>
+            <p>Backdraft Suppressors offers both aluminum and steel suppressors.</p>
+            <div class="hc-two-up">
+              <div class="hc-model-card">
+                <p class="hc-model-kicker">Aluminum</p>
+                <h4>Backdraft Hunter</h4>
+                <p>The Hunter is the lighter-weight option and is a natural choice when keeping overall rifle weight down is a priority.</p>
+                <p>Think hunting rifles, field rifles and applications where you're carrying the firearm more than you're firing extended strings.</p>
+                <p class="hc-warn">The Hunter is not full-auto rated.</p>
+              </div>
+              <div class="hc-model-card">
+                <p class="hc-model-kicker">Steel</p>
+                <h4>Backdraft Poacher</h4>
+                <p>The Poacher is constructed from steel and is designed to accommodate higher pressure tiers and more demanding applications.</p>
+                <p class="hc-ok">The Poacher is full-auto rated.</p>
+                <p>It is also required for certain shorter-barrel configurations.</p>
+              </div>
+            </div>
+            <h4>Which should you choose?</h4>
+            <p>Start with how you actually shoot.</p>
+            <p>If minimizing weight is your priority and your firearm falls within the Hunter's ratings, the Hunter may fit your application.</p>
+            <p>If you need higher pressure capability, a shorter barrel configuration or a full-auto rating, look to the Poacher.</p>
+          </article>
+
+          <article class="hc-guide-step" id="g-4">
+            <h3>Step 4: Check your barrel length and pressure</h3>
+                        <p>This is important.</p>
+            <p>Suppressor compatibility isn't determined by caliber alone.</p>
+            <p><strong>Caliber + pressure + barrel length all matter.</strong></p>
+            <p>Backdraft Suppressors current ratings are:</p>
+            <table class="hc-data-table">
+              <caption class="hc-sr-only">Current Backdraft Suppressors ratings</caption>
+              <thead><tr><th scope="col">Model</th><th scope="col">Rating</th></tr></thead>
+              <tbody>
+                <tr><td>Backdraft Hunter &mdash; Non-Magnum</td><td>Rated up to .308 Win with a 20" barrel or longer</td></tr>
+                <tr><td>Backdraft Hunter &mdash; Magnum</td><td>Rated up to .300 PRC with a 26" barrel or longer</td></tr>
+                <tr><td>Backdraft Poacher</td><td>Rated up to .308 Win with a 16" barrel or longer</td></tr>
+              </tbody>
+            </table>
+            <p class="hc-warn">If you're shooting anything under a 20" barrel, you must upgrade to the Poacher.</p>
+            <p>Backdraft suppressors are not rated for cartridges exceeding 65,000 PSI, including 7mm Backcountry, +P/&ldquo;Peak&rdquo; ammunition exceeding that pressure limit, and .277 Fury configurations exceeding the suppressor's pressure rating.</p>
+            <p class="hc-warn">Never use a suppressor outside its published caliber, pressure or barrel-length ratings.</p>
+          </article>
+
+          <article class="hc-guide-step" id="g-5">
+            <h3>Step 5: Understand how your suppressor attaches</h3>
+                        <p>This is where many first-time suppressor buyers get confused.</p>
+            <p>You don't just need the right suppressor.</p>
+            <p><strong>You need the right mount.</strong></p>
+            <p>Backdraft Suppressors offers direct-thread options including:</p>
+            <p class="hc-spec-row">1/2x28 <span class="hc-spec-word">and</span> 5/8x24</p>
+            <p>These thread patterns fit many common host firearms, but you should always verify your firearm's actual barrel threads before ordering.</p>
+            <p>Backdraft's current suppressor lineup also uses the industry-standard:</p>
+            <p class="hc-spec-row">1-3/8x24 TPI HUB interface</p>
+            <p>also commonly referred to as the 1.375"x24 Bravo/HUB pattern.</p>
+            <p>This allows compatible third-party HUB mounting devices and adapters to be used.</p>
+            <p class="hc-warn">Confirm the proper adapter and compatibility for your specific barrel before purchase.</p>
+          </article>
+
+          <article class="hc-guide-step" id="g-6">
+            <h3>Step 6: Direct thread or another mount?</h3>
+                        <p>The simplest approach may be a direct-thread configuration.</p>
+            <p>The suppressor threads onto the compatible barrel or adapter.</p>
+            <p>If you want a different mounting system, Backdraft Suppressor&rsquo;s universal 1-3/8x24 HUB interface gives you access to compatible aftermarket options.</p>
+            <p class="hc-warn">Backdraft Suppressors does not recommend using muzzle brakes or flash hiders with its suppressors.</p>
+            <p>A compatible 1.375"x24 Bravo/HUB or Plan B mounting solution may be used as long as no portion of the mounting system protrudes into the suppressor's blast chamber.</p>
+          </article>
+
+
+          <article class="hc-guide-step" id="g-7">
+            <h3>Step 7: What about pistols?</h3>
+                        <p>Backdraft suppressors can be used on compatible pistols equipped with threaded barrels.</p>
+            <p>However, there's an important catch.</p>
+            <p>Many common semi-automatic handguns&mdash;including Glock-style tilt-barrel designs&mdash;typically require a Nielsen device, piston or booster system for reliable suppressed operation.</p>
+            <p>Backdraft Suppressors does not currently sell a piston or Nielsen device.</p>
+            <p>Because Backdraft Suppressors use the universal 1-3/8x24 HUB interface, compatible third-party devices can be sourced separately.</p>
+            <p>One option we recommend is the Griffin Armament CAM-LOK system for compatible 1/2x28 applications.</p>
+            <p class="hc-warn">Always confirm the compatibility of the complete firearm, suppressor and mounting system before firing.</p>
+          </article>
+
+          <article class="hc-guide-step" id="g-8">
+            <h3>Step 8: Choose your FFL/SOT dealer</h3>
+                        <p>A suppressor cannot simply be shipped directly to you.</p>
+            <p>Your suppressor must be shipped to an appropriately licensed FFL/SOT dealer, who handles the applicable transfer process before releasing the suppressor to you.</p>
+            <p>When purchasing from Backdraft Suppressors, you'll enter your ZIP code during checkout and select a local FFL/SOT dealer from the dealer database.</p>
+            <p><strong>Your dealer must be located in your legal state of residence.</strong></p>
+            <div class="hc-tip">
+              <p><strong>Don't forget about dealer fees.</strong></p>
+              <p>Individual dealers establish their own suppressor transfer and processing fees.</p>
+              <p>Before selecting a dealer, it's a good idea to ask:</p>
+              <p><em>&ldquo;What do you charge to receive and process an NFA suppressor transfer?&rdquo;</em></p>
+              <p>That way you know the complete cost before ordering.</p>
+            </div>
+          </article>
+
+          <article class="hc-guide-step" id="g-9">
+            <h3>Step 9: Place your Backdraft order</h3>
+                        <p>Once you've determined:</p>
+            <p class="hc-flow">Caliber <span aria-hidden="true">&rarr;</span> Length <span aria-hidden="true">&rarr;</span> Material <span aria-hidden="true">&rarr;</span> Mount <span aria-hidden="true">&rarr;</span> Dealer</p>
+            <p>you're ready to order.</p>
+            <p>Backdraft suppressors are manufactured in batches based on model and configuration.</p>
+            <p><strong>The current estimated production lead time is approximately 8&ndash;12 weeks.</strong></p>
+            <p>Because suppressors are produced in batches, we do not track individual suppressors through production by order number.</p>
+            <p>Once a serial number is assigned to your order, the suppressor is typically expected to ship within several business days.</p>
+            <p>You'll receive a shipping notification with tracking information when it ships to your selected FFL/SOT.</p>
+            <p>Serial numbers cannot be provided ahead of time because they are assigned shortly before shipping.</p>
+          </article>
+
+          <article class="hc-guide-step" id="g-10">
+            <h3>Step 10: Complete the required transfer process</h3>
+                        <p>Once your suppressor reaches the dealer, your FFL/SOT will guide you through the applicable transfer process.</p>
+            <p>This may include the required ATF paperwork, identification information, photograph, fingerprints and background-check requirements.</p>
+            <p>Ask your chosen dealer how they handle the process before ordering so you know exactly what to expect.</p>
+            <p class="hc-warn">Do not take possession of the suppressor until the required transfer has been approved and your dealer is legally able to release it to you.</p>
+          </article>
+
+          <article class="hc-guide-step" id="g-cost">
+            <h3>What will my suppressor really cost?</h3>
+                        <p>Your suppressor's listed price isn't necessarily your final cost.</p>
+            <p>Budget for:</p>
+            <ul class="hc-tick-list hc-cols">
+              <li>Suppressor</li>
+              <li>Mount / adapter</li>
+              <li>Shipping</li>
+              <li>Dealer transfer / processing fee</li>
+              <li>Applicable taxes or fees</li>
+            </ul>
+            <p>Dealer transfer fees vary, so contact your FFL/SOT before placing your order.</p>
+          </article>
+
+          <article class="hc-guide-step" id="g-compare">
+            <h3>Hunter vs. Poacher at a glance</h3>
+                        <div class="hc-table-scroll">
+              <table class="hc-data-table hc-compare">
+                <caption class="hc-sr-only">Comparison of the Backdraft Hunter and Backdraft Poacher</caption>
+                <thead><tr><th scope="col"></th><th scope="col">Backdraft Hunter</th><th scope="col">Backdraft Poacher</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">Material</th><td>Aluminum</td><td>Steel</td></tr>
+                  <tr><th scope="row">Primary Advantage</th><td>Lighter weight</td><td>Higher pressure/duty capability</td></tr>
+                  <tr><th scope="row">Full-Auto Rated</th><td>No</td><td>Yes</td></tr>
+                  <tr><th scope="row">Under 20" Barrel</th><td>No</td><td>Poacher required</td></tr>
+                  <tr><th scope="row">Available Lengths</th><td>4", 6", 8"</td><td>4", 6", 8"</td></tr>
+                  <tr><th scope="row">Available Bores</th><td>5.56, 6.5, 7.62, 9mm, .45</td><td>5.56, 6.5, 7.62, 9mm, .45</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="hc-guide-step" id="g-after">
+            <h3>After you receive your suppressor</h3>
+                        <p>Before firing, verify that the suppressor and mount are properly installed and compatible with your firearm.</p>
+            <p>Pay particular attention to:</p>
+            <ul class="hc-tick-list hc-cols">
+              <li>Caliber</li>
+              <li>Barrel length</li>
+              <li>Thread pitch</li>
+              <li>Mount compatibility</li>
+              <li>Suppressor alignment</li>
+              <li>Ammunition pressure</li>
+            </ul>
+            <p class="hc-warn">Suppressors also become extremely hot during use. Never touch a recently fired suppressor with bare hands.</p>
+          </article>
+
+          <article class="hc-guide-step" id="g-clean">
+            <h3>Cleaning your Backdraft suppressor</h3>
+                        <p>Backdraft suppressors are non-modular, meaning they are not designed to be disassembled by the customer for cleaning.</p>
+            <p>For maintenance, Backdraft Suppressors recommends using an ultrasonic cleaner with a suppressor-safe cleaning solvent.</p>
+            <p class="hc-warn">Do not attempt to disassemble or modify the suppressor.</p>
+          </article>
+
+          <article class="hc-guide-step" id="g-change">
+            <h3>What if I want to change my order?</h3>
+                        <p>Changes and cancellations may be possible before the transfer process has been initiated.</p>
+            <p>Once an order has entered the transfer process, certain changes&mdash;including dealer changes&mdash;may no longer be possible.</p>
+            <p class="hc-warn">Because suppressors are regulated NFA products, Backdraft Suppressors does NOT accept returns on suppressors.</p>
+            <p>If you need to make a change, contact Backdraft Suppressors as soon as possible rather than waiting until the suppressor ships.</p>
+          </article>
+
+          <article class="hc-guide-step" id="g-warranty">
+            <h3>Backdraft lifetime warranty</h3>
+                        <p>Every Backdraft suppressor is backed by a lifetime warranty.</p>
+            <p>If you believe there is a problem with your suppressor, submit a warranty request to Backdraft Suppressors rather than attempting to repair or modify the suppressor yourself.</p>
+          </article>
+
+          <p class="hc-disclaimer">This guide is provided for general educational purposes and is not legal advice. Suppressor laws and transfer requirements can vary by jurisdiction and change over time. Always verify current federal, state and local requirements and follow all manufacturer instructions and published ratings.</p>
+
+        </div>
+      </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="hc-section hc-section-faq" id="faq" data-searchable-section>
+    <div class="hc-wrap">
+      <header class="hc-section-head">
+        <h2>Frequently Asked Questions</h2>
+        <p class="hc-section-lede">Browse by category, or use the search at the top of the page.</p>
+        <div class="hc-faq-tools">
+          <button type="button" class="hc-link-btn" data-expand="#faq">Expand all</button>
+          <span aria-hidden="true">·</span>
+          <button type="button" class="hc-link-btn" data-collapse="#faq">Collapse all</button>
+        </div>
+      </header>
+
+      <nav class="hc-cat-jump" aria-label="FAQ categories">
+        <a href="#faq-specs">Specs &amp; Compatibility</a>
+        <a href="#faq-ordering">Ordering &amp; Shipping</a>
+        <a href="#faq-general">General Questions</a>
+      </nav>
+
+      <div class="hc-faq-cat" id="faq-specs">
+        <h3 class="hc-faq-cat-title">Specs &amp; Compatibility</h3>
+
+        <details class="hc-faq-item" id="faq-materials"><summary>What materials are your suppressors made from?</summary><div class="hc-faq-a">
+          <p>We offer both aluminum and steel models. Aluminum options are typically lighter, while steel models generally support higher pressure tiers and full-auto ratings.</p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-lengths"><summary>What lengths are available?</summary><div class="hc-faq-a">
+          <p>Our lineup includes 4", 6" and 8" options.</p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-multicaliber"><summary>Are your suppressors multi-caliber?</summary><div class="hc-faq-a">
+          <p>Yes — you can use a larger-bore suppressor for smaller calibers, though you’ll lose some efficiency due to gases bypassing the larger bore.</p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-bores"><summary>What bore sizes do you offer?</summary><div class="hc-faq-a">
+          <p>We offer five bore sizes across the product lines. 5.56mm, 6.5mm, 7.62mm, 9mm, .45cal.</p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-threads"><summary>What mounting/thread options are available?</summary><div class="hc-faq-a">
+          <p>Our suppressors mount via direct-thread options in 5/8x24 and 1/2x28 to fit a wide range of host firearms.</p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-fullauto"><summary>Is my suppressor rated for full-auto use?</summary><div class="hc-faq-a">
+          <p>The Backdraft Poacher (steel) is full-auto rated. The Backdraft Hunter (aluminum) is not.</p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-anyfirearm"><summary>Can I use a suppressor with any firearm?</summary><div class="hc-faq-a">
+          <p>No — the suppressor's caliber rating and thread pitch must match your firearm's barrel, and the barrel length must fall within the suppressor's rated range. Using a suppressor on a caliber, thread, or barrel length it isn’t rated for can damage the suppressor or firearm and is unsafe.</p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-pistol"><summary>Can I use a suppressor on a pistol or handgun?</summary><div class="hc-faq-a">
+          <p>Yes, only if it has a threaded barrel. For handguns with tilt-barrel operation (Glock or similar), you’ll most likely need a Nielsen device or a piston booster system.</p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-piston"><summary>Do you sell a piston, Nielsen device, or booster?</summary><div class="hc-faq-a">
+          <p>No. Our suppressors use universal 1-3/8x24 TPI HUB (1.375" x 24 Bravo) threads, compatible with HUB-compatible devices and adapters, so you can source your own.</p>
+          <p>One option we recommend is the Cam-Lock from Griffin Armament for 1/2-28 barrel threading.</p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-muzzledevice"><summary>Can I use a muzzle device, flash hider, or QD mount?</summary><div class="hc-faq-a">
+          <p>We do not recommend the use of muzzle brakes or flash hiders. A 1.375" x 24 Bravo / Plan B compatible mount may be used, as long as no part protrudes into the blast chamber.</p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-baffles"><summary>How many baffles are in each suppressor?</summary><div class="hc-faq-a">
+          <p>The 4" has 3 baffles, the 6" has 7 and the 8" has 9.</p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-cleaning"><summary>How do I clean and maintain my suppressor?</summary><div class="hc-faq-a">
+          <p>Our suppressors are non-modular and cannot be disassembled for cleaning. We recommend using an ultrasonic cleaner with a suppressor-safe cleaning solvent of your choice.</p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-ratings"><summary>What are the caliber and barrel length ratings for the Backdraft Hunter and Poacher?</summary><div class="hc-faq-a">
+          <table class="hc-data-table">
+            <caption class="hc-sr-only">Caliber and barrel length ratings</caption>
+            <thead><tr><th scope="col">Model</th><th scope="col">Rating</th></tr></thead>
+            <tbody>
+              <tr><td>Backdraft Hunter (non-magnum)</td><td>Rated up to .308 Win with a 20" barrel or longer</td></tr>
+              <tr><td>Backdraft Hunter (magnum)</td><td>Rated up to .300 PRC with a 26" barrel or longer</td></tr>
+              <tr><td>Backdraft Poacher</td><td>Rated up to .308 Win with a 16" barrel or longer</td></tr>
+            </tbody>
+          </table>
+          <p class="hc-warn">If you’re shooting anything under a 20" barrel length, you must upgrade to the Poacher.</p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-pressure"><summary>Are your suppressors rated for 7mm Backcountry, +Peak ammunition, or .277 Fury?</summary><div class="hc-faq-a">
+          <p>No — our suppressors are not rated for any cartridge with pressure exceeding 65,000 PSI.</p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-silent"><summary>Do your suppressors make a gun completely silent?</summary><div class="hc-faq-a">
+          <p>No — suppressors reduce the sound signature of a gunshot but don’t eliminate it. They also reduce recoil and muzzle flash, which is why many shooters use them regardless of noise concerns.</p>
+        </div></details>
+      </div>
+
+      <div class="hc-faq-cat" id="faq-ordering">
+        <h3 class="hc-faq-cat-title">Ordering &amp; Shipping</h3>
+
+        <details class="hc-faq-item" id="faq-whereorder"><summary>Where is my suppressor order?</summary><div class="hc-faq-a">
+          <p>Suppressors aren’t tracked by order number through production, since we manufacture in batches based on model configuration. Beyond our estimated 8–12 week lead time, we don’t have a more specific timeline to provide.</p>
+          <p>Once a serial number is assigned to your order, your order will ship within the next several business days, and you’ll receive a shipping notification with tracking info.</p>
+          <p><a class="hc-inline-link" href="https://backdraftsuppressors.com/account.php?action=order_status">Login to your Account</a> to see the status of your order.</p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-directship"><summary>Can suppressors be shipped directly to me?</summary><div class="hc-faq-a">
+          <p>No. Suppressors must be transferred through a licensed FFL/SOT dealer. We ship to your chosen FFL/SOT dealer, who handles the NFA paperwork and final transfer to you.</p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-choosedealer"><summary>How do I choose a dealer?</summary><div class="hc-faq-a">
+          <p>Enter your ZIP code at checkout when prompted, and select a local FFL/SOT dealer from our database.</p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-transferfee"><summary>Will I have to pay a transfer fee?</summary><div class="hc-faq-a">
+          <p>Transfer fees are set by each individual FFL / SOT dealer. Please contact your selected FFL / SOT dealer for more information regarding their transfer fees.</p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-dealermissing"><summary>My preferred FFL / SOT dealer is not available. How do I ship to them?</summary><div class="hc-faq-a">
+          <p>We use the MasterFFL.com database for dealer verification. Have your dealer send a copy of their FFL and 2027 SOT license to <a class="hc-inline-link" href="mailto:license@masterffl.com">license@masterffl.com</a> — once processed, they should appear on the list.</p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-instate"><summary>Do I need to ship to a FFL / SOT dealer in my state?</summary><div class="hc-faq-a">
+          <p>Yes — you must select a FFL / SOT dealer in your legal state of residence.</p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-changedealer"><summary>Can I change my FFL / SOT dealer after placing an order?</summary><div class="hc-faq-a">
+          <p>Yes, prior to your order shipping. Click the following form to select a new FFL/SOT dealer:</p>
+          <p><a class="hc-btn hc-btn-primary" href="https://c5bz3.share-na2.hsforms.com/24f3YBpmeS2KYiUS4Q83Vbw" target="_blank" rel="noopener">Dealer Change Form</a></p>
+          <p class="hc-fine">Please note: once your order transfer has been initiated, we are no longer able to modify your dealer selection. Our team will review your request and get back to you promptly with a confirmation if your order has not yet begun the transfer process.</p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-modify"><summary>How do I modify my order?</summary><div class="hc-faq-a">
+          <p>Click the following form to submit an Order Update request.</p>
+          <p><a class="hc-btn hc-btn-primary" href="https://c5bz3.share-na2.hsforms.com/2suyVOMoXQACIQAXE8p8inA" target="_blank" rel="noopener">Order Update Form</a></p>
+          <p class="hc-fine">Changes can only be made before the NFA transfer process has begun. Our team will review your request and follow up with you either way to confirm whether the change was completed or if the transfer process has already begun and the order can no longer be modified.</p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-cancelorder"><summary>How do I cancel my order?</summary><div class="hc-faq-a">
+          <p>Click the following form to submit a cancellation request.</p>
+          <p><a class="hc-btn hc-btn-primary" href="https://c5bz3.share-na2.hsforms.com/2OMsXyO2pRqSjf1NFEd6ESw" target="_blank" rel="noopener">Order Cancellation Form</a></p>
+          <p class="hc-fine">Changes can only be made before the NFA transfer process has begun. Our team will review your request and follow up with you either way to confirm whether the cancellation was completed or if the transfer process has already begun and the order can no longer be modified.</p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-return"><summary>Can I return a suppressor once it's received?</summary><div class="hc-faq-a">
+          <p>No. We do not accept returns for NFA products.</p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-returnnonnfa"><summary>Can I return non-NFA items from BackdraftSuppressors.com?</summary><div class="hc-faq-a">
+          <p>Yes. Non-NFA items such as un-opened ammo, apparel and HUB adapters can be returned within 30 days of shipped order.</p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-serial"><summary>Can I get my serial number ahead of time?</summary><div class="hc-faq-a">
+          <p>No. We’re unable to provide the serial number ahead of time, as serial numbers are only assigned prior to shipping. Your dealer will receive this information when the order ships.</p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-missinghub"><summary>I'm missing my HUB adapter. How do I get it?</summary><div class="hc-faq-a">
+          <p>Please double check your suppressor — all adapters are installed on the end of the suppressor prior to shipping. If you don’t have the adapter, please submit the following form:</p>
+          <p><a class="hc-btn hc-btn-primary" href="https://c5bz3.share-na2.hsforms.com/2bT4gVeynQpOLsNu1st9Z4g" target="_blank" rel="noopener">Missing HUB Adapter Form</a></p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-defective"><summary>I received an incorrect or defective part — what do I do?</summary><div class="hc-faq-a">
+          <p>Sorry about that — let us know via the following form:</p>
+          <p>Include your order number and a description of the issue. Our team will review your request and get back to you as soon as possible with a resolution.</p>
+          <p><a class="hc-btn hc-btn-primary" href="https://c5bz3.share-na2.hsforms.com/27KskekuGRcaRLHhTtfo0PQ" target="_blank" rel="noopener">Incorrect / Defective Part Form</a></p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-lost"><summary>My shipment was lost in transit. How do I receive my order?</summary><div class="hc-faq-a">
+          <p>If you believe your suppressor was lost in transit, please contact us right away at <a class="hc-inline-link" href="mailto:info@backdraftsuppressors.com">info@backdraftsuppressors.com</a>. A police report may be required in this instance.</p>
+        </div></details>
+      </div>
+
+      <div class="hc-faq-cat" id="faq-general">
+        <h3 class="hc-faq-cat-title">General Questions</h3>
+
+        <details class="hc-faq-item" id="faq-legal"><summary>Are suppressors legal in my state?</summary><div class="hc-faq-a">
+          <p>Suppressor ownership laws vary and change periodically. Check current state law, or with your local dealer, for the latest status.</p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-warrantypolicy"><summary>What is the warranty policy?</summary><div class="hc-faq-a">
+          <p>All Backdraft Suppressors come with a <a class="hc-inline-link" href="#warranty">lifetime warranty</a>. To submit a warranty request, please see the following link, and someone will follow up as soon as possible after review.</p>
+          <p><a class="hc-btn hc-btn-primary" href="https://c5bz3.share-na2.hsforms.com/2MconIUMuRn2_E1BfSwZheQ" target="_blank" rel="noopener">Warranty Form &ndash; Suppressor</a></p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-form4"><summary>Do I still need to complete the Form 4?</summary><div class="hc-faq-a">
+          <p>Transfers to the customer depend on the state and individual dealer. Please contact your chosen dealer for more information on how they’ll handle your transfer.</p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-rebate"><summary>My rebate code is not working?</summary><div class="hc-faq-a">
+          <p>Please try swapping the "o" and "0," or “1” and “l”, as those can most commonly get mixed up. If your code is still not working, please email us your code and we’ll be able to further assist.</p>
+        </div></details>
+
+        <details class="hc-faq-item" id="faq-stacking"><summary>Can I use multiple discounts on one order?</summary><div class="hc-faq-a">
+          <p>No — only one discount per order. We don’t allow discount stacking.</p>
+        </div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WARRANTY ============ -->
+  <section class="hc-section hc-section-warranty" id="warranty" data-searchable-section>
+    <div class="hc-wrap">
+      <div class="hc-warranty-panel">
+        <p class="hc-eyebrow">Backdraft Suppressors</p>
+        <h2>Lifetime Warranty</h2>
+        <p class="hc-lead">Backdraft Suppressors warrants all suppressors against defects in materials and workmanship for the lifetime of the product. If a suppressor is found to be defective under normal use, Backdraft Suppressors will repair or replace the product at no cost to the original purchaser.</p>
+        <h3>What is not covered</h3>
+        <p>This warranty does not apply to damage resulting from misuse, neglect, unauthorized modifications, improper installation, or the use of non-standard or reloaded ammunition.</p>
+        <p>Backdraft Suppressors reserves the right to determine, in its sole discretion, whether a product is covered under this guarantee.</p>
+        <p class="hc-warn">If you believe there is a problem with your suppressor, submit a warranty request to Backdraft Suppressors rather than attempting to repair or modify the suppressor yourself.</p>
+        <p><a class="hc-btn hc-btn-primary" href="https://c5bz3.share-na2.hsforms.com/2MconIUMuRn2_E1BfSwZheQ" target="_blank" rel="noopener">Submit a Warranty Request</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT (intentionally low-emphasis) ============ -->
+  <section class="hc-section hc-section-contact" id="contact" data-searchable-section>
+    <div class="hc-wrap">
+      <h2 class="hc-contact-title">Still need help?</h2>
+      <p class="hc-contact-lede">Most questions are answered above. If you still need us, choose the form that matches your request — it reaches the right team fastest.</p>
+      <ul class="hc-contact-list">
+        <li><a href="https://c5bz3.share-na2.hsforms.com/2OMsXyO2pRqSjf1NFEd6ESw" target="_blank" rel="noopener">Order Cancellation Form</a></li>
+        <li><a href="https://c5bz3.share-na2.hsforms.com/2suyVOMoXQACIQAXE8p8inA" target="_blank" rel="noopener">Order Update Form</a></li>
+        <li><a href="https://c5bz3.share-na2.hsforms.com/24f3YBpmeS2KYiUS4Q83Vbw" target="_blank" rel="noopener">FFL/SOT Dealer Change Form</a></li>
+        <li><a href="https://c5bz3.share-na2.hsforms.com/2MconIUMuRn2_E1BfSwZheQ" target="_blank" rel="noopener">Warranty Form &ndash; Suppressor</a></li>
+        <li><a href="https://c5bz3.share-na2.hsforms.com/2bT4gVeynQpOLsNu1st9Z4g" target="_blank" rel="noopener">Missing HUB Adapter Form</a></li>
+        <li><a href="https://c5bz3.share-na2.hsforms.com/27KskekuGRcaRLHhTtfo0PQ" target="_blank" rel="noopener">Incorrect / Defective Part Form</a></li>
+        <li>Anything else — <a href="mailto:info@backdraftsuppressors.com">info@backdraftsuppressors.com</a></li>
+      </ul>
+      <p class="hc-contact-fine">Please allow 3 business days for a response.</p>
+      <p class="hc-contact-fine">Information in this Help Center is provided for general educational purposes and is not legal advice.</p>
+    </div>
+  </section>
+
+
+  <button class="hc-to-top" id="to-top" hidden aria-label="Back to top">&uarr;</button>
+</div>
+
+<script src="{{cdn 'assets/js/help-center.js'}}" defer></script>
+
+{{/partial}}
+{{> layout/base}}
