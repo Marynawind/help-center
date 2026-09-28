@@ -10,10 +10,13 @@ templates/pages/custom/page/help-center.html   the page
 assets/css/help-center.css                     its styles
 assets/js/help-center.js                       its behaviour
 assets/img/help-center-watermark.png           the Outlier watermark
+
+snippets/help-button.html                      the site-wide Help button
+assets/css/help-button.css                     its styles
 ```
 
-Copy each file to the same path inside the theme. Nothing else in the theme
-needs to change.
+Copy the four page files to the same paths inside the theme. The button is a
+separate, optional step — see below.
 
 ## Then, in the store admin
 
@@ -26,6 +29,26 @@ needs to change.
 
 The template only appears in that dropdown after the theme carrying it has been
 pushed.
+
+## The Help button on every page
+
+A tab fixed to the right edge of the window, so it stays in place while the
+page scrolls. On a phone it becomes a round button clear of the bottom-right
+corner, because a full-height tab would cover too much of a small screen.
+
+1. Copy `assets/css/help-button.css` into the theme.
+2. Open `templates/layout/base.html`.
+3. Paste the contents of `snippets/help-button.html` immediately before
+   `</body>`.
+4. If the Help Center page ends up on a URL other than `/help-center/`, change
+   the `href` in that block.
+
+It hides itself on the Help Center page, so the button never points at the page
+you are already reading.
+
+Everything is prefixed `hcb-` and sits at `z-index: 900`, which is below a
+typical modal or cookie banner and above page content. Lower the number if it
+covers a chat widget.
 
 ## Why nothing collides with the theme
 
@@ -65,7 +88,10 @@ widget or a HubDB-style store — say so and it can be reworked that way.
 
 ## Rebuilding
 
-Do not hand-edit the files in this folder. They are generated:
+The page files are generated. `snippets/help-button.html` and
+`assets/css/help-button.css` are hand-written and are not touched by the build.
+
+Do not hand-edit the generated files:
 
 ```
 python3 build-bigcommerce.py

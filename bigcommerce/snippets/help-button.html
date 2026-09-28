@@ -1,0 +1,28 @@
+{{!--
+    Backdraft Suppressors — floating Help Center button
+
+    Paste this block into templates/layout/base.html, immediately before
+    </body>, so it appears on every page of the store.
+
+    Change the href if the Help Center page ends up on a different URL.
+--}}
+<link rel="stylesheet" href="{{cdn 'assets/css/help-button.css'}}">
+
+<a class="hcb-fab" href="/help-center/" data-help-button>
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="12" cy="12" r="9"></circle>
+    <path d="M9.6 9.3a2.5 2.5 0 1 1 3.3 2.4c-.6.2-.9.8-.9 1.4v.4"></path>
+    <path d="M12 17h.01"></path>
+  </svg>
+  <span class="hcb-label">Help Center</span>
+</a>
+
+<script>
+  /* Hide it on the Help Center page itself. */
+  (function () {
+    var b = document.querySelector('[data-help-button]');
+    if (b && location.pathname.replace(/\/+$/, '') === b.getAttribute('href').replace(/\/+$/, '')) {
+      b.parentNode.removeChild(b);
+    }
+  }());
+</script>
